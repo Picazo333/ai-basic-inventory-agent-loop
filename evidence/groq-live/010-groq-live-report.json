@@ -1,0 +1,111 @@
+{
+  "captured_at_cst": "2026-11-06 08:40:49 CST",
+  "criteria": {
+    "R27": {
+      "status": "PASS",
+      "command": "uv run python agent.py (live) with stdin phrases; API on :8000; GROQ_MODEL=qwen/qwen3.8-27b",
+      "timestamp_cst": "2026-11-06 08:40:49 CST",
+      "model": "qwen/qwen3.8-27b",
+      "has_live_indicators": true,
+      "tool_events_count": 4,
+      "selected_tools_samples": [
+        "list_inventory",
+        "get_low_stock_alerts",
+        "add_product",
+        "get_low_stock_alerts",
+        "list_inventory",
+        "get_low_stock_alerts",
+        "add_product",
+        "get_low_stock_alerts"
+      ],
+      "fn_hits_in_transcript": [],
+      "tool_markers_in_transcript": [
+        "Tapas",
+        "tapas"
+      ],
+      "fail_markers": [],
+      "recent_user_events": [
+        {
+          "actor": "user",
+          "message": "lista el inventario",
+          "tool_call": "",
+          "timestamp": "2026-11-06T14:40:00.517074+00:00"
+        },
+        {
+          "actor": "user",
+          "message": "¿Qué productos están por agotarse?",
+          "tool_call": "",
+          "timestamp": "2026-11-06T14:40:01.620953+00:00"
+        },
+        {
+          "actor": "user",
+          "message": "Registra 15 cajas de tapas y dime las alertas",
+          "tool_call": "",
+          "timestamp": "2026-11-06T14:40:18.501301+00:00"
+        }
+      ],
+      "recent_tool_events": [
+        {
+          "actor": "tool",
+          "message": "{\"status_code\": 200, \"body\": {\"products\": [{\"id\": \"1\", \"name\": \"Leche de avena\", \"quantity\": 8, \"unit\": \"unidades\"}, {\"id\": \"2\", \"name\": \"Café arábica\", \"quantity\": 40, \"unit\": \"bolsas\"}, {\"id\": \"3\", ",
+          "tool_call": "list_inventory",
+          "timestamp": "2026-11-06T14:40:00.890643+00:00"
+        },
+        {
+          "actor": "tool",
+          "message": "{\"status_code\": 200, \"body\": {\"threshold\": 10, \"count\": 4, \"alerts\": [{\"id\": \"6\", \"name\": \"Sirope de vainilla\", \"quantity\": 3, \"unit\": \"botellas\"}, {\"id\": \"3\", \"name\": \"Azúcar\", \"quantity\": 5, \"unit\":",
+          "tool_call": "get_low_stock_alerts",
+          "timestamp": "2026-11-06T14:40:04.969689+00:00"
+        },
+        {
+          "actor": "tool",
+          "message": "{\"status_code\": 201, \"body\": {\"id\": \"9\", \"name\": \"Tapas\", \"quantity\": 15, \"unit\": \"cajas\"}}",
+          "tool_call": "add_product",
+          "timestamp": "2026-11-06T14:40:32.139867+00:00"
+        },
+        {
+          "actor": "tool",
+          "message": "{\"status_code\": 200, \"body\": {\"threshold\": 10, \"count\": 4, \"alerts\": [{\"id\": \"6\", \"name\": \"Sirope de vainilla\", \"quantity\": 3, \"unit\": \"botellas\"}, {\"id\": \"3\", \"name\": \"Azúcar\", \"quantity\": 5, \"unit\":",
+          "tool_call": "get_low_stock_alerts",
+          "timestamp": "2026-11-06T14:40:32.144424+00:00"
+        }
+      ],
+      "recent_agent_events": [
+        {
+          "actor": "agent",
+          "message": "{}",
+          "tool_call": "get_low_stock_alerts",
+          "timestamp": "2026-11-06T14:40:04.965037+00:00"
+        },
+        {
+          "actor": "agent",
+          "message": "Con umbral 10, hay 4 productos por agotarse:\n\n- Sirope de vainilla: 3 botellas\n- Azúcar: 5 kg\n- Leche de avena: 8 unidades\n- Chocolate en polvo: 9 kg",
+          "tool_call": "",
+          "timestamp": "2026-11-06T14:40:18.498832+00:00"
+        },
+        {
+          "actor": "agent",
+          "message": "{\"name\": \"Tapas\", \"quantity\": 15, \"unit\": \"cajas\"}",
+          "tool_call": "add_product",
+          "timestamp": "2026-11-06T14:40:32.132145+00:00"
+        },
+        {
+          "actor": "agent",
+          "message": "{}",
+          "tool_call": "get_low_stock_alerts",
+          "timestamp": "2026-11-06T14:40:32.141275+00:00"
+        },
+        {
+          "actor": "agent",
+          "message": "Registré \"Tapas\" con 15 cajas (id 9).\n\nAlertas actuales (umbral 10):\n- Sirope de vainilla: 3 botellas\n- Azúcar: 5 kg\n- Leche de avena: 8 unidades\n- Chocolate en polvo: 9 kg",
+          "tool_call": "",
+          "timestamp": "2026-11-06T14:40:49.662758+00:00"
+        }
+      ],
+      "transcript_file": "evidence/groq-live/cli-live-session.txt",
+      "note": "Llamada real al LLM en Groq; el modelo selecciona tools. Mock no usado."
+    }
+  },
+  "transcript_excerpt": "Inventario de suministros\nModo: LIVE\nModelo: qwen/qwen3.8-27b\nCliente OpenAI compatible apuntando a https://api.groq.com/openai/v1.\nLa clave se lee de GROQ_API_KEY y no se muestra.\nAPI: http://127.0.0.1:8000\nComandos: ayuda, alertas, salir.\n> lista el inventario\n[live]\nInventario actual:\n\n1. Leche de avena: 8 unidades\n2. Café arábica: 40 bolsas\n3. Azúcar: 5 kg\n4. Vasos de papel: 200 unidades\n5. Leche entera: 12 litros\n6. Sirope de vainilla: 3 botellas\n7. Filtros de papel: 50 cajas\n8. Chocolate en polvo: 9 kg\n> ¿Qué productos están por agotarse?\n[live]\nCon umbral 10, hay 4 productos por agotarse:\n\n- Sirope de vainilla: 3 botellas\n- Azúcar: 5 kg\n- Leche de avena: 8 unidades\n- Chocolate en polvo: 9 kg\n> Registra 15 cajas de tapas y dime las alertas\n[live]\nRegistré \"Tapas\" con 15 cajas (id 9).\n\nAlertas actuales (umbral 10):\n- Sirope de vainilla: 3 botellas\n- Azúcar: 5 kg\n- Leche de avena: 8 unidades\n- Chocolate en polvo: 9 kg\n> salir\n[local]\nSesión cerrada. conversation_log.csv conserva las filas.",
+  "transcript_tail": "Inventario de suministros\nModo: LIVE\nModelo: qwen/qwen3.8-27b\nCliente OpenAI compatible apuntando a https://api.groq.com/openai/v1.\nLa clave se lee de GROQ_API_KEY y no se muestra.\nAPI: http://127.0.0.1:8000\nComandos: ayuda, alertas, salir.\n> lista el inventario\n[live]\nInventario actual:\n\n1. Leche de avena: 8 unidades\n2. Café arábica: 40 bolsas\n3. Azúcar: 5 kg\n4. Vasos de papel: 200 unidades\n5. Leche entera: 12 litros\n6. Sirope de vainilla: 3 botellas\n7. Filtros de papel: 50 cajas\n8. Chocolate en polvo: 9 kg\n> ¿Qué productos están por agotarse?\n[live]\nCon umbral 10, hay 4 productos por agotarse:\n\n- Sirope de vainilla: 3 botellas\n- Azúcar: 5 kg\n- Leche de avena: 8 unidades\n- Chocolate en polvo: 9 kg\n> Registra 15 cajas de tapas y dime las alertas\n[live]\nRegistré \"Tapas\" con 15 cajas (id 9).\n\nAlertas actuales (umbral 10):\n- Sirope de vainilla: 3 botellas\n- Azúcar: 5 kg\n- Leche de avena: 8 unidades\n- Chocolate en polvo: 9 kg\n> salir\n[local]\nSesión cerrada. conversation_log.csv conserva las filas."
+}
