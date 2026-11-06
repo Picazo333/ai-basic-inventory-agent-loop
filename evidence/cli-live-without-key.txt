@@ -1,0 +1,5 @@
+No hay GROQ_API_KEY. El modo live no llama al modelo.
+Crea un .env a partir de .env.example o exporta la variable.
+Para una demo determinista, arranca con: python agent.py --mock
+El modo mock no selecciona tools con un LLM.
+LIVE_EXIT:2

@@ -1,0 +1,13 @@
+# Proxy de tamaño. Medido el 2026-11-06T09:02:31Z
+# Excluye .git, .venv, __pycache__, .pytest_cache
+# Excluye auditoria/TELEMETRY.json, auditoria/EVIDENCE_MANIFEST.yaml y este fichero,
+# porque se escriben después para registrar la cifra.
+files 36
+bytes 230515
+newlines 3721
+staged_files 36
+staged_insertions 3722
+staged_deletions 2
+shortstat: 36 files changed, 3722 insertions(+), 2 deletions(-)
+command: git diff --cached --shortstat
+note: El commit final también incluye este fichero, TELEMETRY.json y EVIDENCE_MANIFEST.yaml. Esas tres piezas no están en las cifras.

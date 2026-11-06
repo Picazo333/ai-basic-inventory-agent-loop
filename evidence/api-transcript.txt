@@ -1,0 +1,52 @@
+# Transcripción HTTP de la API
+# Servidor: uvicorn api.app:app --host 127.0.0.1 --port 57571
+# Catálogo copiado a un directorio temporal. products.csv del repo no se modifica.
+
+$ curl -sS -D - http://127.0.0.1:57571/inventory
+HTTP/1.1 200 OK
+date: Fri, 06 Nov 2026 09:00:28 GMT
+server: uvicorn
+content-length: 529
+content-type: application/json
+
+{"products":[{"id":"1","name":"Leche de avena","quantity":8,"unit":"unidades"},{"id":"2","name":"Café arábica","quantity":40,"unit":"bolsas"},{"id":"3","name":"Azúcar","quantity":5,"unit":"kg"},{"id":"4","name":"Vasos de papel","quantity":200,"unit":"unidades"},{"id":"5","name":"Leche entera","quantity":12,"unit":"litros"},{"id":"6","name":"Sirope de vainilla","quantity":3,"unit":"botellas"},{"id":"7","name":"Filtros de papel","quantity":50,"unit":"cajas"},{"id":"8","name":"Chocolate en polvo","quantity":9,"unit":"kg"}]}
+$ curl -sS -D - -X POST -H "Content-Type: application/json" -d {"name":"Tapas","quantity":15,"unit":"cajas"} http://127.0.0.1:57571/inventory
+HTTP/1.1 201 Created
+date: Fri, 06 Nov 2026 09:00:28 GMT
+server: uvicorn
+content-length: 54
+content-type: application/json
+
+{"id":"9","name":"Tapas","quantity":15,"unit":"cajas"}
+$ curl -sS -D - -X PATCH -H "Content-Type: application/json" -d {"delta":-2} http://127.0.0.1:57571/inventory/3
+HTTP/1.1 200 OK
+date: Fri, 06 Nov 2026 09:00:28 GMT
+server: uvicorn
+content-length: 75
+content-type: application/json
+
+{"product":{"id":"3","name":"Azúcar","quantity":3,"unit":"kg"},"delta":-2}
+$ curl -sS -D - "http://127.0.0.1:57571/inventory/alerts?threshold=6"
+HTTP/1.1 200 OK
+date: Fri, 06 Nov 2026 09:00:28 GMT
+server: uvicorn
+content-length: 414
+content-type: application/json
+
+{"threshold":6,"count":2,"alerts":[{"id":"3","name":"Azúcar","quantity":3,"unit":"kg"},{"id":"6","name":"Sirope de vainilla","quantity":3,"unit":"botellas"}],"summary":"Alertas de stock\nUmbral: 6. La comparación es numérica y no convierte unidades.\n\n2 productos por debajo del umbral:\n  Azúcar              3 kg\n  Sirope de vainilla  3 botellas\n\nSiguiente paso: di qué entrega o venta hay que anotar."}
+$ curl -sS -D - -X PATCH -H "Content-Type: application/json" -d {"delta":1} http://127.0.0.1:57571/inventory/99
+HTTP/1.1 404 Not Found
+date: Fri, 06 Nov 2026 09:00:28 GMT
+server: uvicorn
+content-length: 86
+content-type: application/json
+
+{"detail":"No existe un producto con id 99. Consulta GET /inventory para ver los id."}
+$ curl -sS -D - http://127.0.0.1:57571/docs
+HTTP/1.1 404 Not Found
+date: Fri, 06 Nov 2026 09:00:28 GMT
+server: uvicorn
+content-length: 74
+content-type: application/json
+
+{"detail":"Esa ruta no existe. Revisa el método y la ruta en el README."}
