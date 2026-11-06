@@ -1,0 +1,71 @@
+{
+  "project": "ai-basic-inventory-agent-loop",
+  "status": "PENDIENTE_REVISION_ORQUESTADOR",
+  "started_at": "2026-11-06T08:42:17Z",
+  "finished_at": "2026-11-06T09:02:48Z",
+  "duration_seconds": 1231,
+  "duration_note": "Desde el primer reloj UTC de la sesión hasta el cierre de la verificación. El commit y el push quedan después de finished_at.",
+  "eval_repair_iterations": 1,
+  "failures": [
+    {
+      "what": "GET /docs y una ruta desconocida devolvían detail 'Not Found'.",
+      "why": "El manejador estaba registrado en fastapi.HTTPException. La ruta la levanta starlette.exceptions.HTTPException, que no es la misma clase.",
+      "repair": "El manejador pasó a starlette.exceptions.HTTPException."
+    },
+    {
+      "what": "El test de esquemas falló con KeyError en parameters.required.",
+      "why": "list_inventory no declaraba required.",
+      "repair": "Se añadió required: [] a esa tool."
+    },
+    {
+      "what": "El test del alta mock esperaba una alerta para 15 cajas.",
+      "why": "El umbral por defecto es 10. Quince no está por debajo.",
+      "repair": "El test ahora espera el resumen real: ningún producto bajo el umbral, y sigue comprobando las dos tools."
+    },
+    {
+      "what": "Faltaba docs/demo-mock-transcript.txt.",
+      "why": "La transcripción se genera ejecutando la demo, no se redacta a mano.",
+      "repair": "Se generó con render_session sobre el catálogo del repo y el test la compara byte a byte."
+    },
+    {
+      "what": "La copia de python-hello y la rama quedaron primero en el clon de /tmp.",
+      "why": "El cwd del shell seguía en ese clon.",
+      "repair": "Los cinco ficheros se copiaron a third_party/python-hello del repo del estudiante y la rama cursor/inventory-agent-loop-19bd se creó ahí. El clon de /tmp no se empujó."
+    }
+  ],
+  "verification_commands": [
+    "uv sync --extra dev",
+    "uv run pytest --tb=short -q",
+    "uv run pytest -o addopts= -v --tb=line",
+    "uv run python agent.py --help",
+    "uv run python agent.py",
+    "uv run uvicorn api.app:app --host 127.0.0.1 --port <efímero>",
+    "curl GET /inventory, POST /inventory, PATCH /inventory/3, GET /inventory/alerts?threshold=6, PATCH /inventory/99, GET /docs",
+    "uv run python agent.py --mock --api-url http://127.0.0.1:<puerto>"
+  ],
+  "pytest": {
+    "result": "36 passed",
+    "evidence": "evidence/pytest.txt",
+    "seconds": 2.72
+  },
+  "tokens_used": null,
+  "tokens_unmeasurable_reason": "Esta sesión no recibe un contador de tokens del runtime. No hay variable de entorno de uso ni un fichero de usage en los almacenes locales consultados. Tampoco hubo llamada a Groq: sin GROQ_API_KEY el proceso live sale con código 2 y no aparece un objeto usage del proveedor. No se estima ni se inventa una cifra.",
+  "tokens_proxy": {
+    "method": "git diff --cached --shortstat y suma de bytes de los ficheros del árbol, medidos antes de escribir TELEMETRY.json, EVIDENCE_MANIFEST.yaml y evidence/size-proxy.txt",
+    "measured_at": "2026-11-06T09:02:31Z",
+    "files": 36,
+    "bytes": 230515,
+    "newlines": 3721,
+    "insertions": 3722,
+    "deletions": 2,
+    "shortstat": "36 files changed, 3722 insertions(+), 2 deletions(-)",
+    "evidence": "evidence/size-proxy.txt",
+    "excluded_from_count": [
+      "auditoria/TELEMETRY.json",
+      "auditoria/EVIDENCE_MANIFEST.yaml",
+      "evidence/size-proxy.txt",
+      ".git",
+      ".venv"
+    ]
+  }
+}

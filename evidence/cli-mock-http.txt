@@ -1,0 +1,131 @@
+# Transcripción CLI contra la API real. MODO MOCK.
+# No es una llamada a Groq. Las tools las elige la regla local.
+# Puerto: 57571
+
+Inventario de suministros
+Modo: MOCK
+No hay llamada a un LLM. Las tools las elige una regla local determinista.
+Este modo no demuestra que el modelo seleccione tools.
+API: http://127.0.0.1:57571
+Comandos: ayuda, alertas, salir.
+> ayuda
+[local]
+Comando local: ayuda. No llama al modelo.
+
+Comandos
+  ayuda     Muestra esta ayuda.
+  alertas   Consulta GET /inventory/alerts y muestra el resumen.
+  salir     Cierra la sesión. conversation_log.csv no se borra.
+
+Frases que el modo mock entiende
+  Acaban de llegar 30 unidades de leche de avena
+  Vendimos 12 bolsas de café arábica
+  ¿Qué productos están por agotarse?
+  Registra 15 cajas de tapas y dime las alertas
+  lista el inventario
+
+Arranque
+  Terminal 1: uvicorn api.app:app --reload
+  Terminal 2: python agent.py
+  Demo sin clave: python agent.py --mock
+
+El modo mock elige las tools con una regla local.
+No demuestra que un modelo las seleccione.
+El modo live necesita GROQ_API_KEY y no imprime la clave.
+> alertas
+[local]
+Comando local: consulta directa a GET /inventory/alerts. No es una selección del modelo.
+
+Alertas de stock
+Umbral: 10. La comparación es numérica y no convierte unidades.
+
+4 productos por debajo del umbral:
+  Azúcar              3 kg
+  Sirope de vainilla  3 botellas
+  Leche de avena      8 unidades
+  Chocolate en polvo  9 kg
+
+Siguiente paso: di qué entrega o venta hay que anotar.
+> Acaban de llegar 30 unidades de leche de avena
+[mock]
+Leche de avena queda en 38 unidades (entrada de 30).
+> Vendimos 12 bolsas de café arábica
+[mock]
+Café arábica queda en 28 bolsas (salida de 12).
+> ¿Qué productos están por agotarse?
+[mock]
+Alertas de stock
+Umbral: 10. La comparación es numérica y no convierte unidades.
+
+3 productos por debajo del umbral:
+  Azúcar              3 kg
+  Sirope de vainilla  3 botellas
+  Chocolate en polvo  9 kg
+
+Siguiente paso: di qué entrega o venta hay que anotar.
+> salir
+[local]
+Sesión cerrada. conversation_log.csv conserva las filas.
+
+# conversation_log.csv de esta sesión (directorio temporal)
+actor,message,tool_call,timestamp
+user,ayuda,,2026-11-06T09:00:29.069585+00:00
+agent,"Comando local: ayuda. No llama al modelo.
+
+Comandos
+  ayuda     Muestra esta ayuda.
+  alertas   Consulta GET /inventory/alerts y muestra el resumen.
+  salir     Cierra la sesión. conversation_log.csv no se borra.
+
+Frases que el modo mock entiende
+  Acaban de llegar 30 unidades de leche de avena
+  Vendimos 12 bolsas de café arábica
+  ¿Qué productos están por agotarse?
+  Registra 15 cajas de tapas y dime las alertas
+  lista el inventario
+
+Arranque
+  Terminal 1: uvicorn api.app:app --reload
+  Terminal 2: python agent.py
+  Demo sin clave: python agent.py --mock
+
+El modo mock elige las tools con una regla local.
+No demuestra que un modelo las seleccione.
+El modo live necesita GROQ_API_KEY y no imprime la clave.",,2026-11-06T09:00:29.070776+00:00
+user,alertas,,2026-11-06T09:00:29.089062+00:00
+agent,"Comando local: consulta directa a GET /inventory/alerts. No es una selección del modelo.
+
+Alertas de stock
+Umbral: 10. La comparación es numérica y no convierte unidades.
+
+4 productos por debajo del umbral:
+  Azúcar              3 kg
+  Sirope de vainilla  3 botellas
+  Leche de avena      8 unidades
+  Chocolate en polvo  9 kg
+
+Siguiente paso: di qué entrega o venta hay que anotar.",,2026-11-06T09:00:29.089753+00:00
+user,Acaban de llegar 30 unidades de leche de avena,,2026-11-06T09:00:29.089999+00:00
+agent,{},list_inventory,2026-11-06T09:00:29.090381+00:00
+tool,"{""status_code"": 200, ""body"": {""products"": [{""id"": ""1"", ""name"": ""Leche de avena"", ""quantity"": 8, ""unit"": ""unidades""}, {""id"": ""2"", ""name"": ""Café arábica"", ""quantity"": 40, ""unit"": ""bolsas""}, {""id"": ""3"", ""name"": ""Azúcar"", ""quantity"": 3, ""unit"": ""kg""}, {""id"": ""4"", ""name"": ""Vasos de papel"", ""quantity"": 200, ""unit"": ""unidades""}, {""id"": ""5"", ""name"": ""Leche entera"", ""quantity"": 12, ""unit"": ""litros""}, {""id"": ""6"", ""name"": ""Sirope de vainilla"", ""quantity"": 3, ""unit"": ""botellas""}, {""id"": ""7"", ""name"": ""Filtros de papel"", ""quantity"": 50, ""unit"": ""cajas""}, {""id"": ""8"", ""name"": ""Chocolate en polvo"", ""quantity"": 9, ""unit"": ""kg""}, {""id"": ""9"", ""name"": ""Tapas"", ""quantity"": 15, ""unit"": ""cajas""}]}}",list_inventory,2026-11-06T09:00:29.091922+00:00
+agent,"{""product_id"": ""1"", ""delta"": 30}",update_stock,2026-11-06T09:00:29.092304+00:00
+tool,"{""status_code"": 200, ""body"": {""product"": {""id"": ""1"", ""name"": ""Leche de avena"", ""quantity"": 38, ""unit"": ""unidades""}, ""delta"": 30}}",update_stock,2026-11-06T09:00:29.094263+00:00
+agent,Leche de avena queda en 38 unidades (entrada de 30).,,2026-11-06T09:00:29.094705+00:00
+user,Vendimos 12 bolsas de café arábica,,2026-11-06T09:00:29.094921+00:00
+agent,{},list_inventory,2026-11-06T09:00:29.095111+00:00
+tool,"{""status_code"": 200, ""body"": {""products"": [{""id"": ""1"", ""name"": ""Leche de avena"", ""quantity"": 38, ""unit"": ""unidades""}, {""id"": ""2"", ""name"": ""Café arábica"", ""quantity"": 40, ""unit"": ""bolsas""}, {""id"": ""3"", ""name"": ""Azúcar"", ""quantity"": 3, ""unit"": ""kg""}, {""id"": ""4"", ""name"": ""Vasos de papel"", ""quantity"": 200, ""unit"": ""unidades""}, {""id"": ""5"", ""name"": ""Leche entera"", ""quantity"": 12, ""unit"": ""litros""}, {""id"": ""6"", ""name"": ""Sirope de vainilla"", ""quantity"": 3, ""unit"": ""botellas""}, {""id"": ""7"", ""name"": ""Filtros de papel"", ""quantity"": 50, ""unit"": ""cajas""}, {""id"": ""8"", ""name"": ""Chocolate en polvo"", ""quantity"": 9, ""unit"": ""kg""}, {""id"": ""9"", ""name"": ""Tapas"", ""quantity"": 15, ""unit"": ""cajas""}]}}",list_inventory,2026-11-06T09:00:29.096271+00:00
+agent,"{""product_id"": ""2"", ""delta"": -12}",update_stock,2026-11-06T09:00:29.096591+00:00
+tool,"{""status_code"": 200, ""body"": {""product"": {""id"": ""2"", ""name"": ""Café arábica"", ""quantity"": 28, ""unit"": ""bolsas""}, ""delta"": -12}}",update_stock,2026-11-06T09:00:29.098435+00:00
+agent,Café arábica queda en 28 bolsas (salida de 12).,,2026-11-06T09:00:29.098818+00:00
+user,¿Qué productos están por agotarse?,,2026-11-06T09:00:29.099282+00:00
+agent,{},get_low_stock_alerts,2026-11-06T09:00:29.099599+00:00
+tool,"{""status_code"": 200, ""body"": {""threshold"": 10, ""count"": 3, ""alerts"": [{""id"": ""3"", ""name"": ""Azúcar"", ""quantity"": 3, ""unit"": ""kg""}, {""id"": ""6"", ""name"": ""Sirope de vainilla"", ""quantity"": 3, ""unit"": ""botellas""}, {""id"": ""8"", ""name"": ""Chocolate en polvo"", ""quantity"": 9, ""unit"": ""kg""}], ""summary"": ""Alertas de stock\nUmbral: 10. La comparación es numérica y no convierte unidades.\n\n3 productos por debajo del umbral:\n  Azúcar              3 kg\n  Sirope de vainilla  3 botellas\n  Chocolate en polvo  9 kg\n\nSiguiente paso: di qué entrega o venta hay que anotar.""}}",get_low_stock_alerts,2026-11-06T09:00:29.100913+00:00
+agent,"Alertas de stock
+Umbral: 10. La comparación es numérica y no convierte unidades.
+
+3 productos por debajo del umbral:
+  Azúcar              3 kg
+  Sirope de vainilla  3 botellas
+  Chocolate en polvo  9 kg
+
+Siguiente paso: di qué entrega o venta hay que anotar.",,2026-11-06T09:00:29.101380+00:00

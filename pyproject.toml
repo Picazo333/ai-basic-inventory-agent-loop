@@ -1,0 +1,20 @@
+[project]
+name = "ai-basic-inventory-agent-loop"
+version = "1.0.0"
+description = "API FastAPI de inventario y agente Python con bucle de tools manual."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn>=0.32",
+    "openai>=1.55",
+    "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.3"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-q"

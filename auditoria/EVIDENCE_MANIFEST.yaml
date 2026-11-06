@@ -1,0 +1,139 @@
+project: ai-basic-inventory-agent-loop
+status: PENDIENTE_REVISION_ORQUESTADOR
+git:
+  branch: cursor/inventory-agent-loop-19bd
+  base: main
+  commit_sha: null
+  commit_sha_note: >
+    Un commit no puede guardar su propio hash. El SHA final es el de
+    git rev-parse HEAD después del push y se copia en la descripción del
+    pull request y en el informe de la ejecución.
+rubric:
+  pass: 28
+  fail: 0
+  blocked: 1
+  total: 29
+  blocked_ids:
+    - id: R27
+      reason: No hay GROQ_API_KEY. No se hizo una llamada real ni una selección de tools por el modelo. El mock no sustituye esta evidencia.
+items:
+  - id: R01
+    status: PASS
+    evidence: [api/app.py, tests/test_api.py, evidence/pytest.txt]
+  - id: R02
+    status: PASS
+    evidence: [api/app.py, evidence/api-transcript.txt, evidence/pytest.txt]
+  - id: R03
+    status: PASS
+    evidence: [api/app.py, evidence/api-transcript.txt, tests/test_api.py]
+  - id: R04
+    status: PASS
+    evidence: [api/app.py, evidence/api-transcript.txt, tests/test_api.py]
+  - id: R05
+    status: PASS
+    evidence: [api/app.py, tests/test_api.py]
+  - id: R06
+    status: PASS
+    evidence: [api/app.py, tests/test_api.py, evidence/api-transcript.txt]
+  - id: R07
+    status: PASS
+    evidence: [products.csv, api/app.py]
+  - id: R08
+    status: PASS
+    evidence: [agent.py, tests/test_cli_mock.py]
+  - id: R09
+    status: PASS
+    evidence: [agent.py]
+  - id: R10
+    status: PASS
+    evidence: [agent.py, tests/test_agent_loop.py]
+  - id: R11
+    status: PASS
+    evidence: [agent.py, tests/test_agent_loop.py]
+  - id: R12
+    status: PASS
+    evidence: [agent.py, tests/test_agent_loop.py]
+  - id: R13
+    status: PASS
+    evidence: [agent.py, tests/test_agent_loop.py]
+  - id: R14
+    status: PASS
+    evidence: [agent.py, evidence/cli-mock-http.txt, evidence/cli-help.txt]
+  - id: R15
+    status: PASS
+    evidence: [tests/test_agent_loop.py, tests/test_cli_mock.py]
+  - id: R16
+    status: PASS
+    evidence: [pyproject.toml, tests/test_cli_mock.py, agent.py]
+  - id: R17
+    status: PASS
+    evidence: [agent.py, evidence/cli-mock-http.txt, conversation_log.csv]
+  - id: R18
+    status: PASS
+    evidence: [conversation_log.csv, safe_csv.py]
+  - id: R19
+    status: PASS
+    evidence: [agent.py, tests/test_agent_loop.py]
+  - id: R20
+    status: PASS
+    evidence: [safe_csv.py, tests/test_agent_loop.py, tests/test_csv_safety.py]
+  - id: R21
+    status: PASS
+    evidence: [README.md]
+  - id: R22
+    status: PASS
+    evidence: [README.md, tests/test_persistence.py]
+  - id: R23
+    status: PASS
+    evidence: [pyproject.toml, uv.lock, .gitignore, .env.example, tests/test_provenance.py]
+  - id: R24
+    status: PASS
+    evidence: [agent.py, tests/test_cli_mock.py, evidence/cli-live-without-key.txt]
+  - id: R25
+    status: PASS
+    evidence: [third_party/python-hello/PROVENANCE.md, tests/test_provenance.py]
+  - id: R26
+    status: PASS
+    evidence: [tests/test_persistence.py, evidence/pytest.txt]
+  - id: R27
+    status: BLOCKED
+    reason: Falta GROQ_API_KEY. python agent.py sale con código 2 y no llama a la red.
+    evidence: [evidence/cli-live-without-key.txt, agent.py]
+  - id: R28
+    status: PASS
+    evidence: [docs/demo-mock-transcript.txt, evidence/cli-mock-http.txt, tests/test_cli_mock.py]
+  - id: R29
+    status: PASS
+    evidence: [README.md, auditoria/DESIGN-QA.md, api/app.py, agent.py]
+sessions:
+  - path: docs/demo-mock-transcript.txt
+    label: MOCK
+    note: Catálogo versionado, sin la mutación de los curl. Comparada por test.
+  - path: evidence/cli-mock-http.txt
+    label: MOCK
+    note: python agent.py --mock contra Uvicorn. El CSV temporal ya tenía el PATCH de Azúcar y el alta de Tapas.
+  - path: evidence/api-transcript.txt
+    label: HTTP
+    note: curl a los cuatro endpoints, más 404 de id y 404 de /docs.
+  - path: evidence/pytest.txt
+    label: tests
+    note: 36 passed.
+  - path: evidence/cli-help.txt
+    label: CLI
+  - path: evidence/cli-live-without-key.txt
+    label: LIVE sin clave
+    note: Código de salida 2. No imprime una clave.
+  - path: evidence/size-proxy.txt
+    label: proxy de tamaño
+ui:
+  screenshots: NO APLICA
+  video: NO APLICA
+  lighthouse: NO APLICA
+  lockup: NO APLICA
+  reason: No hay interfaz. Ver auditoria/DESIGN-QA.md.
+provenance:
+  boilerplate: https://github.com/4GeeksAcademy/python-hello
+  commit: 142f2a913162efafce897da8bf241fe690f60395
+  is_template: false
+  license_in_origin: none
+  syllabus_commit: fd2da034894ba93ba738559280ccde074ab1d953

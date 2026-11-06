@@ -1,0 +1,47 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.2.0, pluggy-1.7.0 -- /workspace/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /workspace
+configfile: pyproject.toml
+testpaths: tests
+plugins: anyio-4.16.0
+collecting ... collected 36 items
+
+tests/test_agent_loop.py::test_dispatch_uses_the_endpoint_that_matches_the_tool PASSED [  2%]
+tests/test_agent_loop.py::test_multistep_add_then_alerts_injects_each_result PASSED [  5%]
+tests/test_agent_loop.py::test_loop_stops_when_there_are_no_tool_calls PASSED [  8%]
+tests/test_agent_loop.py::test_history_stays_in_memory_for_the_session PASSED [ 11%]
+tests/test_agent_loop.py::test_iteration_limit_stops_the_tool_loop PASSED [ 13%]
+tests/test_agent_loop.py::test_two_sessions_only_append PASSED           [ 16%]
+tests/test_agent_loop.py::test_api_error_is_injected_and_the_loop_can_finish PASSED [ 19%]
+tests/test_agent_loop.py::test_unknown_tool_and_missing_arguments_do_not_crash PASSED [ 22%]
+tests/test_api.py::test_index_and_openapi_have_no_html_docs PASSED       [ 25%]
+tests/test_api.py::test_post_get_and_duplicate PASSED                    [ 27%]
+tests/test_api.py::test_patch_delta_and_errors PASSED                    [ 30%]
+tests/test_api.py::test_validation_messages PASSED                       [ 33%]
+tests/test_api.py::test_alerts_threshold_is_strict_and_configurable PASSED [ 36%]
+tests/test_api.py::test_unknown_route_message PASSED                     [ 38%]
+tests/test_cli_mock.py::test_tools_have_name_description_and_typed_parameters PASSED [ 41%]
+tests/test_cli_mock.py::test_mock_demo_is_labeled_and_matches_the_transcript PASSED [ 44%]
+tests/test_cli_mock.py::test_mock_session_does_not_construct_the_openai_client PASSED [ 47%]
+tests/test_cli_mock.py::test_help_and_alerts_are_local_commands PASSED   [ 50%]
+tests/test_cli_mock.py::test_unknown_mock_phrase_does_not_call_the_api PASSED [ 52%]
+tests/test_cli_mock.py::test_mock_refuses_to_convert_units PASSED        [ 55%]
+tests/test_cli_mock.py::test_mock_registers_a_new_product_and_then_alerts PASSED [ 58%]
+tests/test_cli_mock.py::test_main_live_without_key_exits_and_mock_help_does_not PASSED [ 61%]
+tests/test_cli_mock.py::test_build_client_points_the_openai_sdk_at_groq PASSED [ 63%]
+tests/test_cli_mock.py::test_live_think_sends_history_and_tools_to_the_client PASSED [ 66%]
+tests/test_cli_mock.py::test_live_think_hides_the_key_when_the_sdk_fails PASSED [ 69%]
+tests/test_cli_mock.py::test_seed_catalog_and_empty_log_are_in_the_repo PASSED [ 72%]
+tests/test_cli_mock.py::test_source_and_dependencies_do_not_import_an_agent_framework PASSED [ 75%]
+tests/test_csv_safety.py::test_append_keeps_previous_rows_and_quotes_special_characters PASSED [ 77%]
+tests/test_csv_safety.py::test_append_repairs_a_header_without_newline PASSED [ 80%]
+tests/test_csv_safety.py::test_failed_replace_leaves_the_original_file PASSED [ 83%]
+tests/test_csv_safety.py::test_concurrent_appends_do_not_drop_rows PASSED [ 86%]
+tests/test_csv_safety.py::test_locked_read_modify_write_counts_every_increment PASSED [ 88%]
+tests/test_persistence.py::test_products_survive_a_new_process PASSED    [ 91%]
+tests/test_persistence.py::test_uvicorn_restart_keeps_products_csv PASSED [ 94%]
+tests/test_provenance.py::test_python_hello_snapshot_matches_the_origin_commit PASSED [ 97%]
+tests/test_provenance.py::test_env_file_is_gitignored_and_not_present PASSED [100%]
+
+============================== 36 passed in 2.72s ==============================

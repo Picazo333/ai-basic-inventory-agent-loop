@@ -1,0 +1,39 @@
+Inventario de suministros
+Modo: LIVE
+Modelo: qwen/qwen3.8-27b
+Cliente OpenAI compatible apuntando a https://api.groq.com/openai/v1.
+La clave se lee de GROQ_API_KEY y no se muestra.
+API: http://127.0.0.1:8000
+Comandos: ayuda, alertas, salir.
+> lista el inventario
+[live]
+Inventario actual:
+
+1. Leche de avena: 8 unidades
+2. Café arábica: 40 bolsas
+3. Azúcar: 5 kg
+4. Vasos de papel: 200 unidades
+5. Leche entera: 12 litros
+6. Sirope de vainilla: 3 botellas
+7. Filtros de papel: 50 cajas
+8. Chocolate en polvo: 9 kg
+> ¿Qué productos están por agotarse?
+[live]
+Con umbral 10, hay 4 productos por agotarse:
+
+- Sirope de vainilla: 3 botellas
+- Azúcar: 5 kg
+- Leche de avena: 8 unidades
+- Chocolate en polvo: 9 kg
+> Registra 15 cajas de tapas y dime las alertas
+[live]
+Registré "Tapas" con 15 cajas (id 9).
+
+Alertas actuales (umbral 10):
+- Sirope de vainilla: 3 botellas
+- Azúcar: 5 kg
+- Leche de avena: 8 unidades
+- Chocolate en polvo: 9 kg
+> salir
+[local]
+Sesión cerrada. conversation_log.csv conserva las filas.

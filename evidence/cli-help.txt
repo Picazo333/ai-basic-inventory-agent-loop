@@ -1,0 +1,14 @@
+usage: python agent.py [-h] [--mock] [--api-url API_URL] [--log LOG]
+                       [--max-iterations MAX_ITERATIONS]
+
+Agente de inventario. El bucle de tools está en agent.py. Sin --mock intenta
+llamar a Groq con GROQ_API_KEY.
+
+options:
+  -h, --help            show this help message and exit
+  --mock                Usa la regla local determinista. No llama a Groq y no
+                        demuestra selección del modelo.
+  --api-url API_URL     URL base de la API. Por defecto http://127.0.0.1:8000.
+  --log LOG             Ruta de conversation_log.csv.
+  --max-iterations MAX_ITERATIONS
+                        Máximo de vueltas con tools.

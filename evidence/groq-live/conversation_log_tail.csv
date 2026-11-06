@@ -1,0 +1,35 @@
+actor,message,tool_call,timestamp
+user,lista el inventario,,2026-11-06T14:40:00.517074+00:00
+agent,{},list_inventory,2026-11-06T14:40:00.881097+00:00
+tool,"{""status_code"": 200, ""body"": {""products"": [{""id"": ""1"", ""name"": ""Leche de avena"", ""quantity"": 8, ""unit"": ""unidades""}, {""id"": ""2"", ""name"": ""Café arábica"", ""quantity"": 40, ""unit"": ""bolsas""}, {""id"": ""3"", ""name"": ""Azúcar"", ""quantity"": 5, ""unit"": ""kg""}, {""id"": ""4"", ""name"": ""Vasos de papel"", ""quantity"": 200, ""unit"": ""unidades""}, {""id"": ""5"", ""name"": ""Leche entera"", ""quantity"": 12, ""unit"": ""litros""}, {""id"": ""6"", ""name"": ""Sirope de vainilla"", ""quantity"": 3, ""unit"": ""botellas""}, {""id"": ""7"", ""name"": ""Filtros de papel"", ""quantity"": 50, ""unit"": ""cajas""}, {""id"": ""8"", ""name"": ""Chocolate en polvo"", ""quantity"": 9, ""unit"": ""kg""}]}}",list_inventory,2026-11-06T14:40:00.890643+00:00
+agent,"Inventario actual:
+
+1. Leche de avena: 8 unidades
+2. Café arábica: 40 bolsas
+3. Azúcar: 5 kg
+4. Vasos de papel: 200 unidades
+5. Leche entera: 12 litros
+6. Sirope de vainilla: 3 botellas
+7. Filtros de papel: 50 cajas
+8. Chocolate en polvo: 9 kg",,2026-11-06T14:40:01.619298+00:00
+user,¿Qué productos están por agotarse?,,2026-11-06T14:40:01.620953+00:00
+agent,{},get_low_stock_alerts,2026-11-06T14:40:04.965037+00:00
+tool,"{""status_code"": 200, ""body"": {""threshold"": 10, ""count"": 4, ""alerts"": [{""id"": ""6"", ""name"": ""Sirope de vainilla"", ""quantity"": 3, ""unit"": ""botellas""}, {""id"": ""3"", ""name"": ""Azúcar"", ""quantity"": 5, ""unit"": ""kg""}, {""id"": ""1"", ""name"": ""Leche de avena"", ""quantity"": 8, ""unit"": ""unidades""}, {""id"": ""8"", ""name"": ""Chocolate en polvo"", ""quantity"": 9, ""unit"": ""kg""}], ""summary"": ""Alertas de stock\nUmbral: 10. La comparación es numérica y no convierte unidades.\n\n4 productos por debajo del umbral:\n  Sirope de vainilla  3 botellas\n  Azúcar              5 kg\n  Leche de avena      8 unidades\n  Chocolate en polvo  9 kg\n\nSiguiente paso: di qué entrega o venta hay que anotar.""}}",get_low_stock_alerts,2026-11-06T14:40:04.969689+00:00
+agent,"Con umbral 10, hay 4 productos por agotarse:
+
+- Sirope de vainilla: 3 botellas
+- Azúcar: 5 kg
+- Leche de avena: 8 unidades
+- Chocolate en polvo: 9 kg",,2026-11-06T14:40:18.498832+00:00
+user,Registra 15 cajas de tapas y dime las alertas,,2026-11-06T14:40:18.501301+00:00
+agent,"{""name"": ""Tapas"", ""quantity"": 15, ""unit"": ""cajas""}",add_product,2026-11-06T14:40:32.132145+00:00
+tool,"{""status_code"": 201, ""body"": {""id"": ""9"", ""name"": ""Tapas"", ""quantity"": 15, ""unit"": ""cajas""}}",add_product,2026-11-06T14:40:32.139867+00:00
+agent,{},get_low_stock_alerts,2026-11-06T14:40:32.141275+00:00
+tool,"{""status_code"": 200, ""body"": {""threshold"": 10, ""count"": 4, ""alerts"": [{""id"": ""6"", ""name"": ""Sirope de vainilla"", ""quantity"": 3, ""unit"": ""botellas""}, {""id"": ""3"", ""name"": ""Azúcar"", ""quantity"": 5, ""unit"": ""kg""}, {""id"": ""1"", ""name"": ""Leche de avena"", ""quantity"": 8, ""unit"": ""unidades""}, {""id"": ""8"", ""name"": ""Chocolate en polvo"", ""quantity"": 9, ""unit"": ""kg""}], ""summary"": ""Alertas de stock\nUmbral: 10. La comparación es numérica y no convierte unidades.\n\n4 productos por debajo del umbral:\n  Sirope de vainilla  3 botellas\n  Azúcar              5 kg\n  Leche de avena      8 unidades\n  Chocolate en polvo  9 kg\n\nSiguiente paso: di qué entrega o venta hay que anotar.""}}",get_low_stock_alerts,2026-11-06T14:40:32.144424+00:00
+agent,"Registré ""Tapas"" con 15 cajas (id 9).
+
+Alertas actuales (umbral 10):
+- Sirope de vainilla: 3 botellas
+- Azúcar: 5 kg
+- Leche de avena: 8 unidades
+- Chocolate en polvo: 9 kg",,2026-11-06T14:40:49.662758+00:00
